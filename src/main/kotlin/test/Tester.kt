@@ -20,7 +20,11 @@ class Tester {
 //        add(LinkedHashMapOrderTest::class)
 //        add(DeferTest::class)
 //        add(InlineCircleCallTest::class)
-        add(BeanIntegrationTest::class)
+//        add(CBackMappingTest::class)
+//        add(IgnoredRun::class)
+//        add(WriteFileTest::class)
+        add(StaticDataTest::class)
+//        add(BeanIntegrationTest::class)
     }
 
     init {
