@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("reflect"))
 
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC2")
