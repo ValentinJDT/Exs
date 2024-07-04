@@ -1,9 +1,9 @@
 package test
 
-fun assertNotNull(value: Any?): Unit = if(value == null) { throw AssertionError("It's null") } else { }
-fun assertNull(value: Any?): Unit = if(value != null) { throw AssertionError("It can't be null") } else { }
-fun assertTrue(boolean: Boolean): Unit = if(!boolean) { throw AssertionError("It's false") } else { }
-fun assertFalse(boolean: Boolean): Unit = if(boolean) { throw AssertionError("It's true") } else { }
+fun <T> assertNotNull(value: T?): T = if(value == null) { throw AssertionError("null") } else { value }
+fun assertNull(value: Any?): Unit = if(value != null) { throw AssertionError("null") } else { }
+fun assertTrue(boolean: Boolean): Unit = if(!boolean) { throw AssertionError("false") } else { }
+fun assertFalse(boolean: Boolean): Unit = if(boolean) { throw AssertionError("true") } else { }
 fun assertEq(arg1: Any?, arg2: Any?): Unit = if(arg1 != arg2) { throw AssertionError("Not equals") } else { }
 fun assertNotEq(arg1: Any?, arg2: Any?): Unit = if(arg1 == arg2) { throw AssertionError("Equals") } else { }
 
@@ -20,9 +20,33 @@ interface BeanContainer {
     fun beans(): Map<String, Any>
 }
 
+class StaticData {
+    private val data = mutableMapOf<String, Any>()
+
+    operator fun set(key: String, value: Any) {
+        data[key] = value
+    }
+
+    operator fun <T> get(key: String): T? = data[key] as T?
+
+    override fun toString(): String = this::class.simpleName + "=" + data.toString()
+}
+
+class TypedStaticData<T> {
+    private val data = mutableMapOf<String, T>()
+
+    operator fun set(key: String, value: T) {
+        data[key] = value
+    }
+
+    operator fun get(key: String): T? = data[key]
+
+    override fun toString(): String = this::class.simpleName + "=" + data.toString()
+}
+
 abstract class TestClass: BeanContainer {
     init {
-        val beans = beans()
+        val beans = beans() + mapOf(StaticData::class.java.name to StaticData())
 
         val tests = mutableMapOf<String, Boolean>()
 
@@ -48,8 +72,9 @@ abstract class TestClass: BeanContainer {
                 if(throwError) tests["`${method.name}`() : Unfortunely passed"] = false
 
             } catch(exception: Exception) {
-                if(!throwError)
+                if(!throwError) {
                     tests["`${method.name}`() : ${exception.cause?.message}"] = false
+                }
             }
         }
 
