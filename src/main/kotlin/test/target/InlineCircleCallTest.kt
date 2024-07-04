@@ -1,18 +1,20 @@
 package test.target
 
-import inlinerecursive.testRecursive
+import inlinerecursive.CustomClassDTO
+import inlinerecursive.DTOMaker
 import test.Test
 import test.TestClass
-import test.assertEq
 
 class InlineCircleCallTest: TestClass() {
 
     @Test
     fun `remove s in firsts chars`() {
-        val value = "ssssa123"
-        val result = testRecursive(value)
-
-        assertEq("a123", result)
+        val resp = DTOMaker.fake(CustomClassDTO::class)
+        println(resp)
     }
 
+}
+
+inline fun <reified T> getType(listClass: List<T>): String? {
+    return T::class.qualifiedName
 }
