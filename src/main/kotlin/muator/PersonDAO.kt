@@ -1,4 +1,4 @@
-package setget
+package muator
 
 import com.mongodb.MongoClientSettings
 import com.mongodb.MongoException
@@ -8,9 +8,7 @@ import com.mongodb.client.result.InsertOneResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.bson.BsonInt64
 import org.bson.Document

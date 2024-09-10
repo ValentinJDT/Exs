@@ -74,7 +74,10 @@ abstract class TestClass: BeanContainer {
             } catch(exception: Exception) {
                 if(!throwError) {
                     tests["`${method.name}`() : ${exception.cause?.message}"] = false
+
+                    exception.printStackTrace()
                 }
+
             }
         }
 
@@ -103,3 +106,5 @@ abstract class TestClass: BeanContainer {
         return emptyMap()
     }
 }
+
+inline fun <reified T> T.toBean(key: String = T::class.java.name): Pair<String, T> = key to this

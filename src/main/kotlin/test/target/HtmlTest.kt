@@ -13,6 +13,7 @@ class HtmlTest: TestClass() {
 
         val mainTag = html {
             set("lang", "en")
+            set("class", "voiture")
 
             "head" {
                 "meta" {
@@ -28,20 +29,13 @@ class HtmlTest: TestClass() {
             }
 
             "body" {
-                "p" {
-                    set("class", "suus")
 
-                    +"Lorem ipsum"; "br"()
-                    +"dolor"
-
-                    "span"()
-                }
                 "input" {
                     set("type", "number")
                     set("class", "mqzd qzd uuqzd")
-                    set("aria-label", "idqz")
                     set("id", "1234")
                 }
+
             }
         }
 

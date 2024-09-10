@@ -1,5 +1,5 @@
 import test.Tester
 
-fun main(args: Array<String>) {
+fun main() {
     Tester()
 }

@@ -18,7 +18,7 @@ class ProviderTest: TestClass() {
 
         val provider = Provider(list)
 
-        provider.get<FakePlugin>()
+        assertNotNull(provider.get<FakePlugin>())
     }
 
     @Test(true)

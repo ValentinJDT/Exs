@@ -11,7 +11,6 @@ open class Tag {
     open val tag: String
     open var parent: Tag? = null
 
-
     private val properties = HashMap<String, String>()
 
     @Deprecated("Use set(key, value) instead of.")
