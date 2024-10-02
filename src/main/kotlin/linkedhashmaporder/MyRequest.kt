@@ -5,7 +5,7 @@ interface IRequest {
     fun getSortParams(): LinkedHashMap<String, String>? {
         val map = linkedMapOf<String, String>()
 
-        sort?.let {
+        sort.let {
             val split = it.split(",")
             split.forEach {
                 val pair = it.split(":")
