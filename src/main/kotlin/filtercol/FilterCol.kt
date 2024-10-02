@@ -40,11 +40,11 @@ inline fun <reified T : Any> Collection<T>.paginate(params: IPagination, filter:
     }.toMap()
 
     // Apply sorting to the filtered items
-    val sortedItems = filteredItems.sortedWith(Comparator { a, b ->
-        sortParams.entries.fold(0) { acc, (key, comparator) ->
+    val sortedItems = filteredItems.sortedWith { a, b ->
+        sortParams.entries.fold(0) { acc, (_, comparator) ->
             if (acc != 0) acc else comparator.compare(a, b)
         }
-    })
+    }
 
     val totalItems = sortedItems.size
     val totalPages = ceil(totalItems.toDouble() / params.pageSize).toInt()
