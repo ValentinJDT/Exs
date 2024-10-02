@@ -6,5 +6,6 @@ data class EntityModel(
     val name: String,
     val enabled: Boolean,
     val intN: Int,
-    val bigIntN: BigInteger
+    val bigIntN: BigInteger,
+    val longN: Long,
 )

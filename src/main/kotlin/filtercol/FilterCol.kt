@@ -16,14 +16,24 @@ inline fun <reified T : Any> Collection<T>.paginate(params: IPagination, filter:
 
         when (value) {
             "ASC" -> key to Comparator<T> { a, b ->
-                a::class.members.first { it.name == key }.call(a).toString().compareTo(
-                    b::class.members.first { it.name == key }.call(b).toString()
-                )
+                val first = a::class.members.first { it.name == key }.call(a)
+                val second = b::class.members.first { it.name == key }.call(b)
+
+                if(first is Number && second is Number) {
+                    first.toDouble().compareTo(second.toDouble())
+                } else {
+                    first.toString().compareTo(second.toString())
+                }
             }
             "DESC" -> key to Comparator<T> { a, b ->
-                b::class.members.first { it.name == key }.call(b).toString().compareTo(
-                    a::class.members.first { it.name == key }.call(a).toString()
-                )
+                val first = a::class.members.first { it.name == key }.call(a)
+                val second = b::class.members.first { it.name == key }.call(b)
+
+                if(first is Number && second is Number) {
+                    second.toDouble().compareTo(first.toDouble())
+                } else {
+                    second.toString().compareTo(first.toString())
+                }
             }
             else -> null
         }
