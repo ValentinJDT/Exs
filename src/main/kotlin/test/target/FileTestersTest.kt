@@ -5,6 +5,7 @@ import readtestfiles.getMachines
 import readtestfiles.loadCsv
 import test.Test
 import test.TestClass
+import java.io.File
 
 class FileTestersTest: TestClass() {
 
@@ -25,6 +26,14 @@ class FileTestersTest: TestClass() {
             }
 
         }
+    }
+
+    @Test
+    fun `append in file`() {
+        val file = File("test.txt")
+
+        file.appendText("Hello\n")
+        file.appendText("World !\n")
     }
 
 }
