@@ -7,8 +7,8 @@ typealias Body = Tag.() -> Unit
 
 open class Tag {
 
-    open val body: Body
-    open val tag: String
+    open var body: Body? = null
+    open var tag: String? = null
     open var parent: Tag? = null
 
     private val properties = HashMap<String, String>()
@@ -18,11 +18,11 @@ open class Tag {
     val innerTags = ArrayList<Tag>()
     var str: String? = null
 
-    constructor(body: Body, tag: String, parent: Tag? = null) {
+    constructor(body: Body?, tag: String?, parent: Tag? = null) {
         this.body = body
         this.tag = tag
         this.parent = parent
-        body(this)
+        body!!(this)
     }
 
     operator fun String.unaryPlus(): Boolean = innerTags.add(text(this))
@@ -45,8 +45,8 @@ open class Tag {
     }
 }
 
-class body(override var parent: Tag? = null, override val body: Body) : Tag(body, "body", parent)
-class html(override var parent: Tag? = null, override val body: Body) : Tag(body, "html", parent)
+class body(override var parent: Tag? = null, override var body: Body?) : Tag(body, "body", parent)
+class html(override var parent: Tag? = null, override var body: Body?) : Tag(body, "html", parent)
 private class text(str: String) : Tag({}, "") {
     init {
         super.str = str
