@@ -1,7 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.serialization") version "2.0.21"
     application
 }
 
@@ -15,11 +15,24 @@ repositories {
 dependencies {
     implementation(kotlin("reflect"))
 
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC2")
+
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
     implementation("org.apache.commons:commons-csv:1.10.0")
 
+    implementation("com.iknova.gl.core:gl-core-common-jvm:0.4")
+    implementation("com.iknova.gl.structdata4:gl-structdata4-core:4.2.7")
+
+
     testImplementation(kotlin("test"))
+}
+
+repositories {
+    maven {
+        name = "Iknova Artifactory"
+        url = uri("https://repo.iknova.corp/artifactory/all-releases/")
+    }
 }
 
 tasks.test {
@@ -27,7 +40,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 application {
