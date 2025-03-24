@@ -6,7 +6,6 @@ import com.iknova.gl.structdata4.core.modules.EmptyModule
 import com.iknova.gl.structdata4.core.modules.IDataModule
 import com.iknova.gl.structdata4.core.modules.plus
 import com.iknova.gl.structdata4.core.newDataManager
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -17,16 +16,8 @@ import java.util.ServiceLoader
 class DataSerializationStruct {
 
     private companion object {
-        val dataManager: IDataManager = newDataManager(
-            ServiceLoader.load(IDataModule::class.java).fold<IDataModule, IDataModule>(
-                EmptyModule
-            ) { acc, mod -> acc + mod }).also {
-            runBlocking {
-                it.awaitInitialization()
-            }
-        }
+        val dataManager: IDataManager = newDataManager(ServiceLoader.load(IDataModule::class.java).fold<IDataModule, IDataModule>(EmptyModule) { acc, mod -> acc + mod })
     }
-
 
     val serializer = Json {
         serializersModule += dataManager.serializersModule
@@ -42,11 +33,11 @@ enum class EnumToSerialize {
 
 @Serializable
 data class MasterSerialize(
-    val a: TypedDataValue<ToSerialize, *>,
-    val b: TypedDataValue<ToSerialize, *>,
-    val c: TypedDataValue<ToSerialize, *>,
-    val d: TypedDataValue<ToSerialize, *>
+    val a: TypedDataValue<RandomToSerialize, *>,
+    val b: TypedDataValue<RandomToSerialize, *>,
+    val c: TypedDataValue<RandomToSerialize, *>,
+    val d: TypedDataValue<RandomToSerialize, *>
 )
 
 @Serializable
-data class ToSerialize(val a: Int, val b: String, val c: EnumToSerialize, val data: TypedDataValue<String, *>)
+data class RandomToSerialize(val a: Int, val b: String, val c: EnumToSerialize, val data: TypedDataValue<String, *>)

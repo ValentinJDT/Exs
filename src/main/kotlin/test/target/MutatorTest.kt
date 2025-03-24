@@ -4,19 +4,12 @@ import mutatorlocal.PseudoModel
 import mutatorlocal.daoImpl
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.bson.types.ObjectId
 import muator.Person
 import muator.PersonDAO
 import muator.PersonModel
+import org.bson.types.ObjectId
 import test.*
 import java.util.Random
-
-data class MyCustomBean(var value: String) {
-
-    fun exempt(): String {
-        return value
-    }
-}
 
 class MutatorTest: TestClass() {
 
@@ -25,7 +18,7 @@ class MutatorTest: TestClass() {
     @Test
     fun `insert value`(@Qualifier("personDao") personDAO: PersonDAO) {
 
-        runBlocking {
+        runBlocking<Unit> {
             personDAO.addPerson(Person(
                 firstName = "John",
                 lastName = "Doe",
