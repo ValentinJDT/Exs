@@ -6,7 +6,7 @@ import kotlin.reflect.full.createInstance
 class Tester {
 
     val testClasses = buildSet {
-        add(AutoCloseTest::class)
+//        add(AutoCloseTest::class)
 //        add(BeanIntegrationTest::class)
 //        add(BuilderTest::class)
 //        add(CallTest::class)
@@ -15,6 +15,7 @@ class Tester {
 //        add(ConsoleTrickTest::class)
 //        add(ContainsTest::class)
 //        add(DateEqTest::class)
+//        add(DateOutPutTest::class)
 //        add(DbReaderTest::class)
 //        add(DeferTest::class)
 //        add(EditTest::class)
@@ -30,6 +31,7 @@ class Tester {
 //        add(GetSetTest::class)
 //        add(HerTest::class)
 //        add(HtmlTest::class)
+//        add(IfCallbackTest::class)
 //        add(IgnoredRun::class)
 //        add(InlineCircleCallTest::class)
 //        add(LinkedHashMapOrderTest::class)
@@ -38,6 +40,7 @@ class Tester {
 //        add(PathTest::class)
 //        add(ProgressBarTest::class)
 //        add(ProviderTest::class)
+        add(ReflectionTest::class)
 //        add(SerializationTest::class)
 //        add(SperaTest::class)
 //        add(StaticDataTest::class)
