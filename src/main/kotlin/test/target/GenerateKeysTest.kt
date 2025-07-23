@@ -1,25 +1,35 @@
 package test.target
 
-import generatekeys.rsaKeyPair
-import generatekeys.toFiles
+import rsakeys.RsaKeyProperties
+import test.After
+import test.Before
 import test.Test
 import test.TestClass
-import test.assertNotNull
+import test.assertTrue
 import java.nio.file.Path
+import java.sql.SQLOutput
 
 class GenerateKeysTest : TestClass() {
 
-    @Test
-    fun `generate rsa key pair`() {
-        assertNotNull(rsaKeyPair())
+
+    @Test(order = 1)
+    fun `generate key pair`() {
+        assertTrue(RsaKeyProperties.initKeys())
     }
 
-    @Test
-    fun `generate rsa key files`() {
-        rsaKeyPair()?.toFiles(
-            Path.of("C:\\Users\\v.jeandot\\Desktop\\rsa-test\\public_key.pem"),
-            Path.of("C:\\Users\\v.jeandot\\Desktop\\rsa-test\\private_key.pem")
-        )
+    @Test(order = 2)
+    fun `validate private and public keys`() {
+        val pubKey = RsaKeyProperties.publicKey.get()
+        val privKey = RsaKeyProperties.privateKey.get()
+
+        val keyPairMatches = privKey.modulus.equals(pubKey.modulus)
+
+        assertTrue(keyPairMatches)
+    }
+
+    @After
+    fun `remove key files`() {
+        Path.of("certs\\").toFile().deleteRecursively()
     }
 
 }
